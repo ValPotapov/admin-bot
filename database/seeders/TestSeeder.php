@@ -16,7 +16,7 @@ class TestSeeder extends Seeder
     public function run()
     {
         //
-//        Salon::factory()->count(10)->create();
-        Report::factory()->count(100)->create();
+        Salon::factory()->count(20)->create();
+        Report::factory()->count(500)->create();
     }
 }
