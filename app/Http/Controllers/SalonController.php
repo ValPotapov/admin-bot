@@ -98,7 +98,7 @@ class SalonController extends Controller
                 }
             }
         }else{
-            $type = 'days';
+            $type = $request->type;
             $date = [];
         }
 
