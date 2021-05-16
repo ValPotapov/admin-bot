@@ -67,35 +67,40 @@ class SalonController extends Controller
         $reports = $salon->reports;
         $minData = $reports->sortBy('created_at')->first()->created_at;
 
-        if ($request->get('type') == 'months') {
-            if (!Auth::user()->can('salons.show.months')) {
-                abort(403);
-            }
-            $type = 'months';
-            $date = $this->generateDate($minData, 'MMMM YYYY', 'months');
-            $count = $reports->sum('number_calls');
-            foreach ($date as $key => $value) {
+        if (!empty($reports)){
+            if ($request->get('type') == 'months') {
+                if (!Auth::user()->can('salons.show.months')) {
+                    abort(403);
+                }
+                $type = 'months';
+                $date = $this->generateDate($minData, 'MMMM YYYY', 'months');
+                $count = $reports->sum('number_calls');
+                foreach ($date as $key => $value) {
 
-                $tempCount = $reports->filter(function ($report) use ($value) {
-                    return $report->created_at->year == $value['year'] && $report->created_at->month == $value['month'];
-                });
+                    $tempCount = $reports->filter(function ($report) use ($value) {
+                        return $report->created_at->year == $value['year'] && $report->created_at->month == $value['month'];
+                    });
 
-                $value = ['value' => round($tempCount->sum('number_calls') * 100 / $count) . '%'];
-                $date[$key] = array_merge($date[$key], $value);
+                    $value = ['value' => round($tempCount->sum('number_calls') * 100 / $count) . '%'];
+                    $date[$key] = array_merge($date[$key], $value);
+                }
+            } else {
+                $type = 'days';
+                $date = $this->generateDate($minData, 'DD MMMM YYYY', 'days');
+
+                foreach ($date as $key => $value) {
+                    $tempCount = $reports->filter(function ($report) use ($value) {
+                        return $report->created_at->format('d.m.Y') == $value['date'];
+                    });
+
+                    $value = ['value' => $tempCount->sum('number_calls')];
+                    $date[$key] = array_merge($date[$key], $value);
+                }
             }
-        } else {
+        }else{
             $type = 'days';
-            $date = $this->generateDate($minData, 'DD MMMM YYYY', 'days');
-
-            foreach ($date as $key => $value) {
-                $tempCount = $reports->filter(function ($report) use ($value) {
-                    return $report->created_at->format('d.m.Y') == $value['date'];
-                });
-
-                $value = ['value' => $tempCount->sum('number_calls')];
-                $date[$key] = array_merge($date[$key], $value);
-            }
         }
+
 
         return Inertia::render('Salons/Show',
             compact('date', 'salon', 'type'));
