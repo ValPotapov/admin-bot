@@ -99,7 +99,7 @@ class SalonController extends Controller
             }
         }else{
             $type = 'days';
-            $data = [];
+            $date = [];
         }
 
 
