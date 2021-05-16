@@ -9,19 +9,6 @@
         <form class="w-full max-w-lg" @submit.prevent="submit">
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="phone">
-                        Номер телефона
-                    </label>
-                    <input
-                        v-model="form.phone"
-                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        id="phone"
-                        type="text"
-                        required>
-                </div>
-            </div>
-            <div class="flex flex-wrap -mx-3 mb-6">
-                <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="number_calls">
                         Кол-во звонков
                     </label>
@@ -59,6 +46,19 @@
                         required>
                 </div>
             </div>
+            <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Дата
+                    </label>
+                    <input
+                        v-model="form.date"
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="date"
+                        type="date"
+                        required>
+                </div>
+            </div>
             <div class="w-full mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
                     Салон
@@ -91,13 +91,14 @@ export default {
         errors:Object
     },
     name: "Create",
-    setup () {
+    setup (props) {
+        const salon = props.salons ? props.salons[0]:null
         const form = reactive({
-            salon_id: null,
-            phone: null,
+            salon_id: salon.id,
             number_calls:null,
             came:null,
             stayed:null,
+            date: new Date().toISOString().slice(0,10)
         })
 
         function submit() {

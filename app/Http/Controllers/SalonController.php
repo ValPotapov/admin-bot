@@ -31,64 +31,64 @@ class SalonController extends Controller
     {
         $count = Report::select('number_calls')->sum('number_calls');
 
-        if (Auth::user()->hasRole('salon_admin')){
+        if (Auth::user()->hasRole('salon_admin')) {
             $salons = QueryBuilder::for(Salon::class)
                 ->with('reports')
                 ->where('user_id', Auth::id())
                 ->paginate()
                 ->withQueryString();
-        }else{
+        } else {
             $salons = QueryBuilder::for(Salon::class)
                 ->with('reports')
                 ->paginate()
                 ->withQueryString();
         }
 
-        foreach ($salons as $key => $salon){
+        foreach ($salons as $key => $salon) {
             $tempCount = $salon->reports->sum('number_calls');
-            $salons[$key]->percent = round($tempCount * 100 / $count).'%';
+            $salons[$key]->percent = round($tempCount * 100 / $count) . '%';
         }
 
         return Inertia::render('Salons/Index', [
             'salons' => $salons
-        ])->table(function (InertiaTable $table){
+        ])->table(function (InertiaTable $table) {
             $table->addColumn('name', 'Name');
             $table->addColumn('id', 'ID');
         });
     }
 
-    public function show(Salon $salon, Request  $request)
+    public function show(Salon $salon, Request $request)
     {
         $reports = $salon->reports;
         $minData = $reports->sortBy('created_at')->first()->created_at;
 
-        if ($request->get('type') == 'months'){
-            if (!Auth::user()->can('salons.show.months')){
+        if ($request->get('type') == 'months') {
+            if (!Auth::user()->can('salons.show.months')) {
                 abort(403);
             }
             $type = 'months';
             $date = $this->generateDate($minData, 'MMMM YYYY', 'months');
             $count = $reports->sum('number_calls');
-            foreach ($date as $key => $value){
+            foreach ($date as $key => $value) {
 
-                $tempCount = $reports->filter(function ($report)use ($value) {
+                $tempCount = $reports->filter(function ($report) use ($value) {
                     return $report->created_at->year == $value['year'] && $report->created_at->month == $value['month'];
                 });
 
-                $value = ['value' => round($tempCount->sum('number_calls') * 100 / $count).'%'];
-                $date[$key] =  array_merge($date[$key], $value);
+                $value = ['value' => round($tempCount->sum('number_calls') * 100 / $count) . '%'];
+                $date[$key] = array_merge($date[$key], $value);
             }
-        }else{
+        } else {
             $type = 'days';
             $date = $this->generateDate($minData, 'DD MMMM YYYY', 'days');
 
-            foreach ($date as $key => $value){
-                $tempCount = $reports->filter(function ($report)use ($value) {
+            foreach ($date as $key => $value) {
+                $tempCount = $reports->filter(function ($report) use ($value) {
                     return $report->created_at->format('d.m.Y') == $value['date'];
                 });
 
                 $value = ['value' => $tempCount->sum('number_calls')];
-                $date[$key] =  array_merge($date[$key], $value);
+                $date[$key] = array_merge($date[$key], $value);
             }
         }
 
@@ -102,34 +102,43 @@ class SalonController extends Controller
         return Inertia::render('Salons/Create', compact('users'));
     }
 
-    public function store(Request  $request)
+    public function store(Request $request)
     {
-       $this->validate($request,[
-           'name' => 'required|string|max:255',
-           'user_id' => 'required|exists:users,id'
-       ]);
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
+            'phone' => 'required|string|max:255'
+        ]);
 
         Salon::create($request->all());
 
         return Redirect::route('salons.index')->with('success', 'Салон успешно создан');
     }
 
-    public function edit(Request $request,Salon $salon){
+    public function edit(Request $request, Salon $salon)
+    {
 
         $users = User::role('salon_admin')->get();
 
         return Inertia::render('Salons/Edit',
-        compact('salon', 'users'));
+            compact('salon', 'users'));
     }
 
-    public function update(Request $request,Salon $salon){
+    public function update(Request $request, Salon $salon)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
+            'phone' => 'required|string|max:255'
+        ]);
 
-        $salon->update($request->only('name', 'user_id'));
+        $salon->update($request->only('name', 'user_id', 'phone'));
 
         return Redirect::route('salons.index')->with('success', 'Салон успешно обновлен');
     }
 
-    public function destroy(Request $request,Salon $salon){
+    public function destroy(Request $request, Salon $salon)
+    {
 
         $salon->delete();
 
@@ -140,22 +149,23 @@ class SalonController extends Controller
     {
         $results = [];
         $i = 0;
-        while (true){
-            $date = $min->isoFormat($format);
+        $max = Carbon::now();
+        while (true) {
+            $date = $max->isoFormat($format);
 
             $results[] = [
                 'label' => $date,
-                'month' => $min->format('m'),
-                'year' => $min->format('Y'),
-                'date' => $min->format('d.m.Y')
+                'month' => $max->format('m'),
+                'year' => $max->format('Y'),
+                'date' => $max->format('d.m.Y')
             ];
-            if ($date == Carbon::now()->isoFormat($format)){
+            if ($date == $min->isoFormat($format)) {
                 break;
             }
-            if ($type == 'months'){
-                $min = $min->addMonth();
-            }else{
-                $min = $min->addDay();
+            if ($type == 'months') {
+                $max = $max->addMonths(-1);
+            } else {
+                $max = $max->addDays(-1);
             }
 
             $i++;

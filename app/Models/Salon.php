@@ -10,7 +10,8 @@ class Salon extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
+        'phone'
     ];
 
     public function reports()

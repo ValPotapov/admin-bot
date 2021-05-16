@@ -12,9 +12,9 @@ class Report extends Model
     protected $fillable = [
         'salon_id',
         'number_calls',
-        'phone',
         'came',
-        'stayed'
+        'stayed',
+        'date'
     ];
 
     public function categories()

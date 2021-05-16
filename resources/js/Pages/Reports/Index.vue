@@ -24,10 +24,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Салон</th>
-                        <th>Телефон</th>
                         <th>Кол-во звонков</th>
                         <th>Пришли</th>
                         <th>Остались</th>
+                        <th>Дата</th>
                         <th class="flex justify-center">Действие</th>
                     </tr>
                 </template>
@@ -35,10 +35,10 @@
                     <tr v-for="report in reports.data" :key="report.id">
                         <td>{{ report.id }}</td>
                         <td>{{ report.salon.name }}</td>
-                        <td>{{ report.phone }}</td>
                         <td>{{ report.number_calls }}</td>
                         <td>{{ report.came }}</td>
                         <td>{{ report.stayed }}</td>
+                        <td>{{ report.date }}</td>
                         <td class="flex justify-evenly">
                             <can permission="reports.edit">
                                 <inertia-link

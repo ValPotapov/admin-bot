@@ -24,6 +24,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Название</th>
+                        <th>Телефон</th>
                         <th>Процент звонков</th>
                         <th>Статистика</th>
                         <th class="flex justify-center">Действие</th>
@@ -35,6 +36,7 @@
                     <tr v-for="salon in salons.data" :key="salon.id">
                         <td>{{ salon.id }}</td>
                         <td>{{ salon.name }}</td>
+                        <td>{{ salon.phone }}</td>
                         <td>{{ salon.percent }}</td>
                         <td>
                             <inertia-link

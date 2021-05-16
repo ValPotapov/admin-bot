@@ -94,14 +94,20 @@ class ReportController extends Controller
         }
 
         $this->validate($request, [
-            'phone' => 'required|string|max:255',
             'number_calls' => 'required|numeric',
             'came' => 'required|numeric',
             'stayed' => 'required|numeric',
-            'salon_id' => 'required|exists:salons,id'
+            'salon_id' => 'required|exists:salons,id',
+            'date' => 'required|date|unique:reports',
         ]);
 
-        Report::create($request->all());
+        Report::create([
+            'number_calls' => $request->number_calls,
+            'came' => $request->came,
+            'stayed' => $request->stayed,
+            'salon_id' => $request->salon_id,
+            'date' => $request->date
+        ]);
 
         if (Auth::user()->hasRole('salon_admin')){
             $user = User::find(Auth::id());
@@ -148,14 +154,14 @@ class ReportController extends Controller
     {
         //
         $this->validate($request, [
-            'phone' => 'required|string|max:255',
             'number_calls' => 'required|numeric',
             'came' => 'required|numeric',
             'stayed' => 'required|numeric',
-            'salon_id' => 'required|exists:salons,id'
+            'salon_id' => 'required|exists:salons,id',
+            'date' => 'required|date|unique:reports,id,'.$report->id,
         ]);
 
-        $report->update($request->only('phone', 'number_calls', 'came', 'stayed', 'salon_id'));
+        $report->update($request->only( 'number_calls', 'came', 'stayed', 'salon_id', 'date'));
 
         return Redirect::route('reports.index')->with('success', 'Отчет успешно обновлен');
     }

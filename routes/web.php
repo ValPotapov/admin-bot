@@ -27,6 +27,8 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::resource('reports', 'ReportController');
 
     Route::resource('users', 'UserController');
+
+    Route::get('/', 'IndexController@index');
 });
 
 
