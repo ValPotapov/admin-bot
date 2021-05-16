@@ -98,8 +98,17 @@ class ReportController extends Controller
             'came' => 'required|numeric',
             'stayed' => 'required|numeric',
             'salon_id' => 'required|exists:salons,id',
-            'date' => 'required|date|unique:reports',
+            'date' => 'required|date',
         ]);
+
+        $count = Report::whereDate('date', $request->date)
+            ->where('salon_id', $request->salon_id)
+            ->count();
+
+        if ($count > 0){
+            return back()->withErrors( ['date' => ['Такое значение поля Дата уже существует.']]);
+        }
+
 
         Report::create([
             'number_calls' => $request->number_calls,
@@ -158,8 +167,17 @@ class ReportController extends Controller
             'came' => 'required|numeric',
             'stayed' => 'required|numeric',
             'salon_id' => 'required|exists:salons,id',
-            'date' => 'required|date|unique:reports,id,'.$report->id,
+            'date' => 'required|date',
         ]);
+
+        $count = Report::whereDate('date', $request->date)
+            ->where('salon_id', $request->salon_id)
+            ->where('id', '<>',$report->id)
+            ->count();
+
+        if ($count > 0){
+            return back()->withErrors( ['date' => ['Такое значение поля Дата уже существует.']]);
+        }
 
         $report->update($request->only( 'number_calls', 'came', 'stayed', 'salon_id', 'date'));
 
