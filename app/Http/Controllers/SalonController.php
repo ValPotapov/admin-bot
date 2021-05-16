@@ -65,8 +65,7 @@ class SalonController extends Controller
     public function show(Salon $salon, Request $request)
     {
         $reports = $salon->reports;
-
-        if (!$reports->empty()){
+        if ($reports->count() > 0){
             $minData = $reports->sortBy('created_at')->first()->created_at;
             if ($request->get('type') == 'months') {
                 if (!Auth::user()->can('salons.show.months')) {
