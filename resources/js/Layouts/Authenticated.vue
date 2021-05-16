@@ -14,11 +14,28 @@
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('salons.index')" :active="route().current('salons.index')">
-                                    Салоны
-                                </breeze-nav-link>
-                            </div>
+                            <can permission="salons.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('salons.index')" :active="route().current('salons.index') || route().current('salons.show') || route().current('salons.create')">
+                                        Салоны
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
+                            <can permission="users.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('users.index')" :active="route().current('users.index') || route().current('users.show') || route().current('users.create')">
+                                        Пользователи
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
+                           <can permission="reports.index">
+                               <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                   <breeze-nav-link :href="route('reports.index')" :active="route().current('reports.index') || route().current('reports.show') || route().current('reports.create')">
+                                       Отчеты
+                                   </breeze-nav-link>
+                               </div>
+                           </can>
+
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -65,6 +82,16 @@
                             Салоны
                         </breeze-responsive-nav-link>
                     </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <breeze-responsive-nav-link :href="route('users.index')" :active="route().current('users.index')">
+                            Пользователи
+                        </breeze-responsive-nav-link>
+                    </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <breeze-responsive-nav-link :href="route('reports.index')" :active="route().current('reports.index')">
+                            Отчеты
+                        </breeze-responsive-nav-link>
+                    </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
@@ -90,9 +117,17 @@
             </header>
 
             <!-- Page Content -->
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 bg-white border-b border-gray-200">
             <main>
                 <slot />
             </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -103,9 +138,11 @@
     import BreezeDropdownLink from '@/Components/DropdownLink'
     import BreezeNavLink from '@/Components/NavLink'
     import BreezeResponsiveNavLink from '@/Components/ResponsiveNavLink'
+    import Can from "@/Components/Can";
 
     export default {
         components: {
+            Can,
             BreezeApplicationLogo,
             BreezeDropdown,
             BreezeDropdownLink,

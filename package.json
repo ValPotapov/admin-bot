@@ -26,6 +26,8 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "@protonemedia/inertiajs-tables-laravel-query-builder": "^1.2.3"
+        "@protonemedia/inertiajs-tables-laravel-query-builder": "^1.2.3",
+        "vue-js-modal": "^2.0.0-rc.6",
+        "vue-sweetalert2": "^4.3.1"
     }
 }

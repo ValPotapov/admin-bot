@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('salon_id')->constrained();
+            $table->foreignId('salon_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('phone');
             $table->integer('number_calls')->default(0);
             $table->integer('came')->default(0);

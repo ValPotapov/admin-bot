@@ -1,3 +1,20 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+    .active-tab-link {
+        @apply px-3 py-1.5 font-medium text-gray-800 bg-gray-100 rounded-lg;
+    }
+
+    .tab-link{
+        @apply px-3 py-1.5 text-gray-500 rounded-lg capitalize hover:bg-gray-100 rounded-lg
+    }
+
+    .btn-success{
+        @apply inline-flex items-center px-4 py-2 bg-green-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-900 focus:outline-none focus:border-green-900  transition ease-in-out duration-150 ml-4
+    }
+}
+
+
+

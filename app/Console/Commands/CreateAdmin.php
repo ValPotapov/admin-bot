@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class CreateAdmin extends Command
 {
@@ -39,15 +41,71 @@ class CreateAdmin extends Command
      */
     public function handle()
     {
-        User::updateOrCreate(
+        $admin = Role::updateOrCreate([
+            'name' => 'admin',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::updateOrCreate([
+            'name' => 'salons.index',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'salons.show',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'salons.create',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'salons.store',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'salons.update',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'salons.destroy',
+            'guard_name' => 'web'
+        ]);
+
+
+        $admin->givePermissionTo('salons.index');
+        $admin->givePermissionTo('salons.show');
+        $admin->givePermissionTo('salons.create');
+        $admin->givePermissionTo('salons.store');
+        $admin->givePermissionTo('salons.update');
+        $admin->givePermissionTo('salons.destroy');
+        $admin->givePermissionTo('salons.edit');
+        $admin->givePermissionTo('salons.show.months');
+
+        $admin->givePermissionTo('users.index');
+        $admin->givePermissionTo('users.create');
+        $admin->givePermissionTo('users.store');
+        $admin->givePermissionTo('users.update');
+        $admin->givePermissionTo('users.destroy');
+        $admin->givePermissionTo('users.edit');
+
+        $admin->givePermissionTo('reports.index');
+        $admin->givePermissionTo('reports.create');
+        $admin->givePermissionTo('reports.store');
+        $admin->givePermissionTo('reports.update');
+        $admin->givePermissionTo('reports.destroy');
+        $admin->givePermissionTo('reports.edit');
+
+        $user = User::updateOrCreate(
             [
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
             ],
             [
-                'password' => Hash::make('Passw0rd')
+                'password' => Hash::make('Passw0rd'),
             ]
         );
+
+        $user->assignRole('admin');
         return 0;
     }
 }

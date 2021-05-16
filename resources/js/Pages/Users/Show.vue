@@ -5,21 +5,18 @@
                 Салон {{ salon.name }}
             </h2>
             <div class="flex items-center mt-6 space-x-4 overflow-y-auto 2xl:justify-center whitespace-nowrap">
-                    <sub-menu-link
-                        :href="route('salons.show',salon.id) + '?type=days'"
-                        :active="type === 'days'"
-                    >
-                        Кол-во звонков по дням
-                    </sub-menu-link>
-
-                <can permission="salons.show.months">
-                    <sub-menu-link
-                        :href="route('salons.show',salon.id) + '?type=months'"
-                        :active="type === 'months'"
-                    >
-                        Проценты по месяцам
-                    </sub-menu-link>
-                </can>
+                <sub-menu-link
+                    :href="route('salons.show',salon.id) + '?type=months'"
+                    :active="type === 'months'"
+                >
+                    Проценты по месяцам
+                </sub-menu-link>
+                <sub-menu-link
+                    :href="route('salons.show',salon.id) + '?type=days'"
+                    :active="type === 'days'"
+                >
+                    Кол-во звонков по дням
+                </sub-menu-link>
             </div>
         </template>
                     <div class="flex flex-wrap -mx-1 lg:-mx-4">
@@ -50,13 +47,11 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
 import Dropdown from "@/Components/Dropdown";
 import DropdownLink from "@/Components/DropdownLink";
 import SubMenuLink from "@/Components/SubMenuLink";
-import Can from "@/Components/Can";
 
 
 export default {
     name: "Show",
     components: {
-        Can,
         SubMenuLink,
         DropdownLink,
         Dropdown,

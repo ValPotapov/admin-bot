@@ -1,8 +1,5 @@
 <?php
-
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +22,11 @@ use Inertia\Inertia;
 //});
 
 Route::group(['middleware' => ['auth', 'verified']], function (){
-    Route::get('/salons', 'SalonController@index')->name('salons.index');
-    Route::get('/salon/{salon}', 'SalonController@show')->name('salons.show');
+    Route::resource('salons', 'SalonController');
+
+    Route::resource('reports', 'ReportController');
+
+    Route::resource('users', 'UserController');
 });
 
 

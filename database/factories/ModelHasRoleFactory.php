@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Salon;
+use App\Models\Model;
+use App\Models\ModelHasRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class SalonFactory extends Factory
+class ModelHasRoleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Salon::class;
+    protected $model = ModelHasRole::class;
 
     /**
      * Define the model's default state.
@@ -25,8 +25,9 @@ class SalonFactory extends Factory
     {
         return [
             //
-            'name' => $this->faker->name,
-            'user_id' => User::all()->random(),
+            'model_type' => 'App\Models\User',
+            'role_id' => 2,
+            'model_id' => $this->faker->unique(true)->numberBetween(2, 10)
         ];
     }
 }
