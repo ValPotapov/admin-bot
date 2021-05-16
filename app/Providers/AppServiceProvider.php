@@ -42,7 +42,11 @@ class AppServiceProvider extends ServiceProvider
 
         Inertia::share([
             'permissions' => function () {
+            if (Auth::check()){
                 return Auth::user()->getAllPermissions();
+            }else{
+                return  [];
+            }
             }
         ]);
     }
