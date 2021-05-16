@@ -46,7 +46,12 @@ class SalonController extends Controller
 
         foreach ($salons as $key => $salon) {
             $tempCount = $salon->reports->sum('number_calls');
-            $salons[$key]->percent = round($tempCount * 100 / $count) . '%';
+            if (!empty($count)){
+                $salons[$key]->percent = round($tempCount * 100 / $count) . '%';
+            }else{
+                $salons[$key]->percent = '0%';
+            }
+
         }
 
         return Inertia::render('Salons/Index', [
