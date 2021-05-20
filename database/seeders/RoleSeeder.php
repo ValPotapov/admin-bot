@@ -46,6 +46,14 @@ class RoleSeeder extends Seeder
         $admin->givePermissionTo('reports.destroy');
         $admin->givePermissionTo('reports.edit');
 
+        $admin->givePermissionTo('sources.index');
+        $admin->givePermissionTo('sources.create');
+        $admin->givePermissionTo('sources.store');
+        $admin->givePermissionTo('sources.update');
+        $admin->givePermissionTo('sources.destroy');
+        $admin->givePermissionTo('sources.edit');
+        $admin->givePermissionTo('can.update.fix');
+
        $salon_admin = Role::updateOrCreate([
             'name' => 'salon_admin',
         ],
@@ -59,6 +67,8 @@ class RoleSeeder extends Seeder
 
         $salon_admin->givePermissionTo('reports.index');
         $salon_admin->givePermissionTo('reports.create');
+        $salon_admin->givePermissionTo('reports.edit');
+        $salon_admin->givePermissionTo('reports.update');
         $salon_admin->givePermissionTo('reports.store');
     }
 }

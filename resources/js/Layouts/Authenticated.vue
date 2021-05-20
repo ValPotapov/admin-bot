@@ -35,12 +35,13 @@
                                    </breeze-nav-link>
                                </div>
                            </can>
-                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <breeze-nav-link :href="route('sources.index')" :active="route().current('sources.index') || route().current('sources.show') || route().current('sources.create')">
-                                    Источники
-                                </breeze-nav-link>
-                            </div>
-
+                            <can permission="sources.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('sources.index')" :active="route().current('sources.index') || route().current('sources.show') || route().current('sources.create')">
+                                        Источники
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

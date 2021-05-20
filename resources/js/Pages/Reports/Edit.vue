@@ -92,6 +92,7 @@
                         v-model="form.sum[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         type="number"
+                        step="any"
                         required
                         @change="onChangeSum"
                     />
@@ -149,11 +150,21 @@
             </div>
             <hr>
             <div class="flex justify-between" v-show="sources.length">
-                <button
-                    v-if="dateReport.fixed === 0"
-                    class="btn-success m-0 mt-5 bg-rose-600"
-                >Обновить
-                </button>
+                <template  v-if="dateReport.fixed === 1">
+                    <can permission="can.update.fix">
+                        <button
+                            class="btn-success m-0 mt-5 bg-rose-600"
+                        >Обновить
+                        </button>
+                    </can>
+                </template>
+                <template v-else>
+                    <button
+                        class="btn-success m-0 mt-5 bg-rose-600"
+                    >Обновить
+                    </button>
+                </template>
+
                 <button
                     @click.prevent="()=>form.fixed = 1"
                     class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"
@@ -173,9 +184,10 @@ import ValidationErrors from "@/Components/ValidationErrors";
 import Multiselect from '@vueform/multiselect'
 import Input from "@/Components/Input";
 import InputFile from "@/Components/InputFile";
+import Can from "@/Components/Can";
 
 export default {
-    components: {InputFile, Input, ValidationErrors, BreezeAuthenticatedLayout, SubMenuLink, Multiselect},
+    components: {Can, InputFile, Input, ValidationErrors, BreezeAuthenticatedLayout, SubMenuLink, Multiselect},
     props: {
         salons: Object,
         dateReport:Object,

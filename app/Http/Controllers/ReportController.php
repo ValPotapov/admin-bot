@@ -223,7 +223,9 @@ class ReportController extends Controller
             ->where('fixed', 1)->count();
 
         if ($exists > 0){
-            return back()->withErrors(['fixed' => ['Отчет фиксирован']]);
+            if (!Auth::user()->can('can.update.fix')){
+                return back()->withErrors(['fixed' => ['Отчет фиксирован']]);
+            }
         }
 
         $this->validate($request, [

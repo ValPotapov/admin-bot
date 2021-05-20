@@ -96,5 +96,35 @@ class PermissionSeeder extends Seeder
             'name' => 'reports.destroy',
             'guard_name' => 'web'
         ]);
+
+        Permission::updateOrCreate([
+            'name' => 'sources.index',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'sources.create',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'sources.store',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'sources.edit',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'sources.update',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'sources.destroy',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'can.update.fix',
+            'guard_name' => 'web'
+        ]);
+
     }
 }

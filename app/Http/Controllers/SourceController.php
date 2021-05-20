@@ -15,6 +15,15 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class SourceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:sources.index')->only('index');
+        $this->middleware('can:sources.edit')->only('edit');
+        $this->middleware('can:sources.show')->only('show');
+        $this->middleware('can:sources.update')->only('update');
+        $this->middleware('can:sources.store')->only('store');
+        $this->middleware('can:sources.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
