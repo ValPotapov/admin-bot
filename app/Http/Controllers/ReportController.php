@@ -117,8 +117,7 @@ class ReportController extends Controller
             'cause.*' => 'nullable|string',
             'salon_id' => 'required|exists:salons,id',
             'date' => 'required|date',
-            'images' => 'required|array',
-            'images.*' => 'required',
+            'images' => 'nullable|array',
             'fixed' => 'required|boolean'
         ]);
 
@@ -241,8 +240,7 @@ class ReportController extends Controller
             'cause.*' => 'nullable|string',
             'salon_id' => 'required|exists:salons,id',
             'date' => 'required|date',
-            'images' => 'required|array',
-            'images.*' => 'required',
+            'images' => 'nullable|array',
             'fixed' => 'required|boolean'
         ]);
 

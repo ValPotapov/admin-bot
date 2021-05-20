@@ -23323,12 +23323,11 @@ var render = /*#__PURE__*/_withId(function (_ctx, _cache, $props, $setup, $data,
           "onUpdate:modelValue": function onUpdateModelValue($event) {
             return $data.form.images[index] = $event;
           },
-          required: index === 0,
           "show-image": $data.form.images[index].length || $data.form.images[index].image,
           path: $data.form.images[index].image
         }, null, 8
         /* PROPS */
-        , ["modelValue", "onUpdate:modelValue", "required", "show-image", "path"]), $props.dateReport.fixed === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_can, {
+        , ["modelValue", "onUpdate:modelValue", "show-image", "path"]), $props.dateReport.fixed === 1 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_can, {
           key: 0,
           permission: "can.update.fix"
         }, {

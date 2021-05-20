@@ -148,7 +148,6 @@
                     <div>
                         <InputFile
                             v-model="form.images[index]"
-                            :required="index === 0"
                             :show-image="form.images[index].length || form.images[index].image"
                             :path="form.images[index].image"
                         />
