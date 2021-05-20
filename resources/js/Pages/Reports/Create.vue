@@ -139,7 +139,7 @@
                     {{ sum_stayed }}
                 </div>
                 <div class="flex flex-wrap mb-6">
-                    {{ sum_sum }}
+                    {{ parseFloat(sum_sum) }}
                 </div>
             </div>
             <hr>
@@ -148,7 +148,6 @@
                     <div>
                         <InputFile
                             v-model="form.images[index]"
-                            :required="index === 0"
                             :show-image="form.images[index].length"/>
                         <span
                             class="text-red-500 cursor-pointer hover:text-red-800"
@@ -207,7 +206,7 @@ export default {
                 date: new Date().toISOString().slice(0, 10),
                 sources: [],
                 cause: [],
-                images: [0],
+                images: [],
                 fixed: 0,
                 sources_id: []
             },

@@ -98,11 +98,11 @@ class ReportController extends Controller
     {
         //
 
-        if (Auth::user()->hasRole('salon_admin')) {
-            if (Auth::user()->date_index != date('Y-m-d')) {
-                abort(403);
-            }
-        }
+//        if (Auth::user()->hasRole('salon_admin')) {
+//            if (Auth::user()->date_index != date('Y-m-d')) {
+//                abort(403);
+//            }
+//        }
 
         $this->validate($request, [
             'number_calls' => 'required|array',
