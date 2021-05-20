@@ -23,7 +23,7 @@
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full px-3">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="salon">
-                        Салон
+                        Салон (Оставьте пустым будет для всех салонов)
                     </label>
                     <Multiselect
                         mode="tags"
