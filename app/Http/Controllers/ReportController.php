@@ -77,9 +77,9 @@ class ReportController extends Controller
     {
         //
         if (Auth::user()->hasRole('salon_admin')) {
-            if (Auth::user()->date_index != date('Y-m-d')) {
-                abort(403);
-            }
+//            if (Auth::user()->date_index != date('Y-m-d')) {
+//                abort(403);
+//            }
             $salons = Salon::where('user_id', Auth::id())->get();
         } else {
             $salons = Salon::all();
