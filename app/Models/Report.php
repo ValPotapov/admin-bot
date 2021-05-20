@@ -14,7 +14,12 @@ class Report extends Model
         'number_calls',
         'came',
         'stayed',
-        'date'
+        'sum',
+        'date',
+        'cause',
+        'source_value',
+        'source_id',
+        'date_report_id'
     ];
 
     public function categories()
@@ -25,5 +30,15 @@ class Report extends Model
     public function salon()
     {
         return $this->belongsTo(Salon::class);
+    }
+
+    public function type()
+    {
+        return $this->belongsTo(TypeReport::class);
+    }
+
+    public function source()
+    {
+        return $this->belongsTo(Source::class);
     }
 }

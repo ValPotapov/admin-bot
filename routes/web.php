@@ -26,7 +26,13 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
 
     Route::resource('reports', 'ReportController');
 
+    Route::post('reports_updates/{id}', 'ReportController@update')->name('reports.update.images');
+
     Route::resource('users', 'UserController');
+
+    Route::resource('sources', 'SourceController');
+
+    Route::get('getSources/{salon_id}', 'SourceController@getSources')->name('getSources');
 
     Route::get('/', 'IndexController@index');
 });

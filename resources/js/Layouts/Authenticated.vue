@@ -35,6 +35,11 @@
                                    </breeze-nav-link>
                                </div>
                            </can>
+                            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                <breeze-nav-link :href="route('sources.index')" :active="route().current('sources.index') || route().current('sources.show') || route().current('sources.create')">
+                                    Источники
+                                </breeze-nav-link>
+                            </div>
 
                         </div>
 
@@ -92,6 +97,11 @@
                             Отчеты
                         </breeze-responsive-nav-link>
                     </div>
+                    <div class="pt-2 pb-3 space-y-1">
+                        <breeze-responsive-nav-link :href="route('sources.index')" :active="route().current('sources.index')">
+                            Источники
+                        </breeze-responsive-nav-link>
+                    </div>
 
                     <!-- Responsive Settings Options -->
                     <div class="pt-4 pb-1 border-t border-gray-200">
@@ -119,7 +129,7 @@
             <!-- Page Content -->
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="bg-white  shadow-sm sm:rounded-lg">
                         <div class="p-6 bg-white border-b border-gray-200">
             <main>
                 <slot />

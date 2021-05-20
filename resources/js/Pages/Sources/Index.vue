@@ -2,7 +2,7 @@
     <breeze-authenticated-layout>
         <template #header>
                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                    Отчеты
+                    Источники
                 </h2>
         </template>
             <toast :success="$page.props.success"/>
@@ -10,7 +10,7 @@
             <can permission="reports.create">
                 <inertia-link
                     class="btn-success"
-                    :href="route('reports.create')"
+                    :href="route('sources.create')"
                 >
                     Добавить
                 </inertia-link>
@@ -23,35 +23,25 @@
                 <template #head>
                     <tr>
                         <th>ID</th>
-                        <th>Салон</th>
-                        <th>Кол-во звонков</th>
-                        <th>Пришли</th>
-                        <th>Остались</th>
-                        <th>Сумма</th>
-                        <th>Дата</th>
+                        <th>Название</th>
                         <th class="flex justify-center">Действие</th>
                     </tr>
                 </template>
                 <template #body>
-                    <tr v-for="report in reports.data" :key="report.id">
-                        <td>{{ report.id }}</td>
-                        <td>{{ report.salon.name }}</td>
-                        <td>{{ report.number_calls }}</td>
-                        <td>{{ report.came }}</td>
-                        <td>{{ report.stayed }}</td>
-                        <td>{{ report.sum }}</td>
-                        <td>{{ report.date }}</td>
+                    <tr v-for="source in sources.data" :key="source.id">
+                        <td>{{ source.id }}</td>
+                        <td>{{ source.name }}</td>
                         <td class="flex justify-evenly">
                             <can permission="reports.edit">
                                 <inertia-link
                                     class="text-yellow-400 hover:text-yellow-700"
-                                    :href="route('reports.edit',report.id)">
+                                    :href="route('sources.edit',source.id)">
                                     Редактировать
                                 </inertia-link>
                             </can>
                            <can permission="reports.destroy">
                                <span
-                                   @click.prevent="showAlert(report.id)"
+                                   @click.prevent="showAlert(source.id)"
                                    class="text-red-500 hover:text-red-800 cursor-pointer">
                                 Удалить
                             </span>
@@ -82,7 +72,7 @@ export default {
     props: {
         auth: Object,
         errors: Object,
-        reports: Object,
+        sources: Object,
         success:String,
     },
 
@@ -100,7 +90,7 @@ export default {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    Inertia.delete(route('reports.destroy',id))
+                    Inertia.delete(route('sources.destroy',id))
                 }
             })
         },

@@ -7,6 +7,7 @@ import { InertiaProgress } from '@inertiajs/progress';
 
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import Multiselect from 'vue-multiselect'
 
 const el = document.getElementById('app');
 
@@ -20,6 +21,7 @@ createApp({
     .mixin({ methods: { route } })
     .use(InertiaPlugin)
     .use(VueSweetalert2)
+    .use(Multiselect)
     .mount(el);
 
 InertiaProgress.init({ color: '#4B5563' });
