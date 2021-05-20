@@ -24074,7 +24074,7 @@ var _hoisted_6 = {
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", {
   "class": "block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2",
   "for": "salon"
-}, " Салон ", -1
+}, " Салон (Оставьте пустым будет для всех салонов) ", -1
 /* HOISTED */
 );
 
