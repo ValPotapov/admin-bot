@@ -19,6 +19,7 @@
         <template style="display: block">
             <Table
                 :meta="reports"
+                class="w-full overflow-y-hidden overflow-x-auto"
             >
                 <template #head>
                     <tr>

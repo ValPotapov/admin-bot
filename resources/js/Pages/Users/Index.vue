@@ -19,6 +19,7 @@
         <template style="display: block">
             <Table
                 :meta="salons"
+                class="w-full overflow-y-hidden overflow-x-auto"
             >
                 <template #head>
                     <tr>

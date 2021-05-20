@@ -41,7 +41,7 @@
 
                 </div>
             </div>
-            <div class="grid grid-cols-6 gap-4">
+            <div class="hidden md:grid md:grid-cols-6 gap-4">
                 <div>Источник</div>
                 <div>Звонков</div>
                 <div>Пришли</div>
@@ -50,9 +50,12 @@
                 <div>Причина</div>
             </div>
             <hr class="mb-5">
-            <div class="grid grid-cols-6 gap-4" v-for="(source,index) in sources" :key="source.id">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4" v-for="(source,index) in sources" :key="source.id">
 
                 <div class="flex flex-wrap mb-6" :data="form.sources_id[index] = source.id">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Источник
+                    </label>
                     <input
                         v-model="form.sources[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -60,6 +63,9 @@
                         :placeholder="source.name"/>
                 </div>
                 <div class="flex flex-wrap  mb-6">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Звонков
+                    </label>
                     <input
                         v-model="form.number_calls[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -70,6 +76,9 @@
                     />
                 </div>
                 <div class="flex flex-wrap mb-6">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Пришли
+                    </label>
                     <input
                         v-model="form.came[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -79,6 +88,9 @@
                     />
                 </div>
                 <div class="flex flex-wrap mb-6">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Остались
+                    </label>
                     <input
                         v-model="form.stayed[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -88,6 +100,9 @@
                     />
                 </div>
                 <div class="flex flex-wrap mb-6">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Сумма
+                    </label>
                     <input
                         v-model="form.sum[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -98,6 +113,9 @@
                     />
                 </div>
                 <div class="flex flex-wrap mb-6">
+                    <label class="block md:hidden uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="date">
+                        Причина
+                    </label>
                     <input
                         v-model="form.cause[index]"
                         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
@@ -106,7 +124,7 @@
                     />
                 </div>
             </div>
-            <div class="grid grid-cols-6 gap-4" v-show="sources.length">
+            <div class="grid grid-cols-5 md:grid-cols-6 gap-4" v-show="sources.length">
 
                 <div class="flex flex-wrap mb-6">
                     Итого
@@ -125,7 +143,7 @@
                 </div>
             </div>
             <hr>
-            <div class="grid grid-cols-4 gap-4 mb-6" v-show="sources.length">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6" v-show="sources.length">
                 <template v-for="(image,index) in form.images">
                     <div>
                         <InputFile
@@ -134,23 +152,49 @@
                             :show-image="form.images[index].length || form.images[index].image"
                             :path="form.images[index].image"
                         />
-                        <span
-                            class="text-red-500 cursor-pointer hover:text-red-800"
-                            v-if="form.images[index].length || form.images[index].image"
-                            @click="()=>form.images.splice(index,1)">
+                        <template v-if="dateReport.fixed === 1">
+                            <can permission="can.update.fix">
+                                  <span
+                                      class="text-red-500 cursor-pointer hover:text-red-800"
+                                      v-if="form.images[index].length || form.images[index].image"
+                                      @click="()=>form.images.splice(index,1)">
                             Удалить
                         </span>
+                            </can>
+
+                        </template>
+                        <template v-else>
+                             <span
+                                 class="text-red-500 cursor-pointer hover:text-red-800"
+                                 v-if="form.images[index].length || form.images[index].image"
+                                 @click="()=>form.images.splice(index,1)">
+                            Удалить
+                        </span>
+                        </template>
+
                     </div>
                 </template>
                 <div>
-                    <button class="btn-success m-0 mt-5 bg-rose-600"
-                            @click.prevent="()=>form.images.push(form.images.length)"
-                            v-show="sources.length">Добавить изображение</button>
+                    <template v-if="dateReport.fixed === 1">
+                        <can permission="can.update.fix">
+                            <button class="btn-success m-0 mt-5 bg-rose-600"
+                                    @click.prevent="()=>form.images.push(form.images.length)"
+                                    v-show="sources.length">Добавить изображение
+                            </button>
+                        </can>
+                    </template>
+                    <template v-else>
+                        <button class="btn-success m-0 mt-5 bg-rose-600"
+                                @click.prevent="()=>form.images.push(form.images.length)"
+                                v-show="sources.length">Добавить изображение
+                        </button>
+                    </template>
+
                 </div>
             </div>
             <hr>
             <div class="flex justify-between" v-show="sources.length">
-                <template  v-if="dateReport.fixed === 1">
+                <template v-if="dateReport.fixed === 1">
                     <can permission="can.update.fix">
                         <button
                             class="btn-success m-0 mt-5 bg-rose-600"
@@ -169,7 +213,7 @@
                     @click.prevent="()=>form.fixed = 1"
                     class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"
                     :disabled="form.fixed === 1">
-                    {{form.fixed === 0?'Фиксировать':'Фиксирован'}}
+                    {{ form.fixed === 0 ? 'Фиксировать' : 'Фиксирован' }}
                 </button>
             </div>
         </form>
@@ -190,7 +234,7 @@ export default {
     components: {Can, InputFile, Input, ValidationErrors, BreezeAuthenticatedLayout, SubMenuLink, Multiselect},
     props: {
         salons: Object,
-        dateReport:Object,
+        dateReport: Object,
         errors: Object
     },
     data() {
