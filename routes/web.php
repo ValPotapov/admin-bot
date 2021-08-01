@@ -32,6 +32,10 @@ Route::group(['middleware' => ['auth', 'verified']], function (){
 
     Route::resource('sources', 'SourceController');
 
+    Route::resource('expenses', 'ExpensesController');
+    Route::resource('expensesTypes', 'ExpensesTypesController');
+    Route::resource('contractors', 'ContractorsController');
+
     Route::get('getSources/{salon_id}', 'SourceController@getSources')->name('getSources');
 
     Route::get('/', 'IndexController@index');

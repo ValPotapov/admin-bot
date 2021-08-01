@@ -1,16 +1,16 @@
 <template>
     <breeze-authenticated-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Салоны
-            </h2>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    Типы расходов
+                </h2>
         </template>
             <toast :success="$page.props.success"/>
         <div class="flex justify-end mb-5">
-            <can permission="salons.create">
+            <can permission="expensesTypes.create">
                 <inertia-link
                     class="btn-success"
-                    :href="route('salons.create')"
+                    :href="route('expensesTypes.create')"
                 >
                     Добавить
                 </inertia-link>
@@ -18,49 +18,35 @@
         </div>
         <template style="display: block">
             <Table
-                :meta="salons"
+                :meta="expensesTypes"
                 class="w-full overflow-y-hidden overflow-x-auto block"
             >
                 <template #head>
                     <tr>
                         <th>ID</th>
                         <th>Название</th>
-<!--                        <th>Телефон</th>-->
-<!--                        <th>Процент звонков</th>-->
-                        <th>Статистика</th>
                         <th class="flex justify-center">Действие</th>
-
-
                     </tr>
                 </template>
                 <template #body>
-                    <tr v-for="salon in salons.data" :key="salon.id">
-                        <td>{{ salon.id }}</td>
-                        <td>{{ salon.name }}</td>
-<!--                        <td>{{ salon.phone }}</td>-->
-<!--                        <td>{{ salon.percent }}</td>-->
-                        <td>
-                            <inertia-link
-                                class="text-indigo-600 hover:text-indigo-900"
-                                :href="route('salons.show',salon.id) + '?type=days'">
-                                Посмотреть
-                            </inertia-link>
-                        </td>
+                    <tr v-for="expensesType in expensesTypes.data" :key="expensesType.id">
+                        <td>{{ expensesType.id }}</td>
+                        <td>{{ expensesType.name }}</td>
                         <td class="flex justify-evenly">
-                            <can permission="salons.edit">
+                            <can permission="expensesTypes.edit">
                                 <inertia-link
                                     class="text-yellow-400 hover:text-yellow-700"
-                                    :href="route('salons.edit',salon.id)">
+                                    :href="route('expensesTypes.edit',expensesType.id)">
                                     Редактировать
                                 </inertia-link>
                             </can>
-                            <can permission="salons.destroy">
-                                  <span
-                                      @click.prevent="showAlert(salon.id)"
-                                      class="text-red-500 hover:text-red-800 cursor-pointer">
+                           <can permission="expensesTypes.destroy">
+                               <span
+                                   @click.prevent="showAlert(expensesType.id)"
+                                   class="text-red-500 hover:text-red-800 cursor-pointer">
                                 Удалить
                             </span>
-                            </can>
+                           </can>
                         </td>
                     </tr>
                 </template>
@@ -87,12 +73,11 @@ export default {
     props: {
         auth: Object,
         errors: Object,
-        salons: Object,
+        expensesTypes: Object,
         success:String,
     },
 
     mounted() {
-      console.log(this.success)
     },
     methods:{
         showAlert(id) {
@@ -105,7 +90,7 @@ export default {
             }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
-                    Inertia.delete(route('salons.destroy',id))
+                    Inertia.delete(route('expensesTypes.destroy',id))
                 }
             })
         },

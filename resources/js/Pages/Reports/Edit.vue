@@ -208,12 +208,12 @@
                     </button>
                 </template>
 
-                <button
-                    @click.prevent="()=>form.fixed = 1"
-                    class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"
-                    :disabled="form.fixed === 1">
-                    {{ form.fixed === 0 ? 'Фиксировать' : 'Фиксирован' }}
-                </button>
+<!--                <button-->
+<!--                    @click.prevent="()=>form.fixed = 1"-->
+<!--                    class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"-->
+<!--                    :disabled="form.fixed === 1">-->
+<!--                    {{ form.fixed === 0 ? 'Фиксировать' : 'Фиксирован' }}-->
+<!--                </button>-->
             </div>
         </form>
     </breeze-authenticated-layout>

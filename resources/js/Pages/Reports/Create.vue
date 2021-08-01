@@ -158,21 +158,23 @@
                     </div>
                 </template>
                 <div>
-                    <button class="btn-success m-0 mt-5 bg-rose-600"
+                    <button ref="createImageBtn" class="btn-success m-0 mt-5 bg-rose-600"
                             @click.prevent="()=>form.images.push(form.images.length)"
-                            v-show="sources.length">Добавить изображение
+                            v-show="sources.length"
+                            v-tooltip="'Сюда можно приложить фото чеков, расходов, письменный отчет'"
+                        >Добавить изображение
                     </button>
                 </div>
             </div>
             <hr>
             <div class="flex justify-between" v-show="sources.length">
                 <button class="btn-success m-0 mt-5 bg-rose-600">Создать</button>
-                <button
-                    @click.prevent="()=>form.fixed = 1"
-                    class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"
-                    :disabled="form.fixed === 1">
-                    {{ form.fixed === 0 ? 'Фиксировать' : 'Фиксирован' }}
-                </button>
+<!--                <button-->
+<!--                    @click.prevent="()=>form.fixed = 1"-->
+<!--                    class="btn-success m-0 mt-5 bg-rose-600 disabled:opacity-10"-->
+<!--                    :disabled="form.fixed === 1">-->
+<!--                    {{ form.fixed === 0 ? 'Фиксировать' : 'Фиксирован' }}-->
+<!--                </button>-->
             </div>
         </form>
     </breeze-authenticated-layout>
@@ -203,7 +205,7 @@ export default {
                 came: [],
                 stayed: [],
                 sum: [],
-                date: new Date().toISOString().slice(0, 10),
+                date: '',
                 sources: [],
                 cause: [],
                 images: [],
@@ -218,6 +220,8 @@ export default {
     },
     mounted() {
         this.change(this.form.salon_id)
+        var d = new Date();d.setDate(d.getDate() - 1);
+        this.form.date = d.toISOString().slice(0, 10);
     },
     methods: {
         change(value) {
@@ -271,5 +275,11 @@ export default {
 </script>
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style scoped>
-
+    #createImageTooltip {
+        background-color: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 13px;
+    }
 </style>

@@ -42,6 +42,27 @@
                                     </breeze-nav-link>
                                 </div>
                             </can>
+                            <can permission="expenses.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('expenses.index')" :active="route().current('expenses.index') || route().current('expenses.create') || route().current('expenses.edit')">
+                                        Расходы
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
+                            <can permission="expensesTypes.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('expensesTypes.index')" :active="route().current('expensesTypes.index') || route().current('expensesTypes.create') || route().current('expensesTypes.edit')">
+                                        Типы расходов
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
+                            <can permission="contractors.index">
+                                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                                    <breeze-nav-link :href="route('contractors.index')" :active="route().current('contractors.index') || route().current('contractors.create') || route().current('contractors.edit')">
+                                        Контрагенты
+                                    </breeze-nav-link>
+                                </div>
+                            </can>
                         </div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">

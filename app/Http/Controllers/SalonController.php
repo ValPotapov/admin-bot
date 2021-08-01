@@ -116,8 +116,7 @@ class SalonController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'user_id' => 'required|exists:users,id',
-            'phone' => 'required|string|max:255'
+            'user_id' => 'required|exists:users,id'
         ]);
 
         Salon::create($request->all());
@@ -138,11 +137,10 @@ class SalonController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|string|max:255',
-            'user_id' => 'required|exists:users,id',
-            'phone' => 'required|string|max:255'
+            'user_id' => 'required|exists:users,id'
         ]);
 
-        $salon->update($request->only('name', 'user_id', 'phone'));
+        $salon->update($request->only('name', 'user_id'));
 
         return Redirect::route('salons.index')->with('success', 'Салон успешно обновлен');
     }

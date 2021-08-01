@@ -8,10 +8,12 @@ import { InertiaProgress } from '@inertiajs/progress';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Multiselect from 'vue-multiselect'
+import tooltip from "./tooltip.js";
+import "../css/tooltip.css";
 
 const el = document.getElementById('app');
 
-createApp({
+let app = createApp({
     render: () =>
         h(InertiaApp, {
             initialPage: JSON.parse(el.dataset.page),
@@ -22,6 +24,7 @@ createApp({
     .use(InertiaPlugin)
     .use(VueSweetalert2)
     .use(Multiselect)
+    .directive('tooltip',tooltip)
     .mount(el);
 
 InertiaProgress.init({ color: '#4B5563' });

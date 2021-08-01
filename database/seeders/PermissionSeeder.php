@@ -126,5 +126,85 @@ class PermissionSeeder extends Seeder
             'guard_name' => 'web'
         ]);
 
+        //expenses
+        Permission::updateOrCreate([
+            'name' => 'expenses.index',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expenses.create',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::updateOrCreate([
+            'name' => 'expenses.edit',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expenses.store',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expenses.update',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expenses.destroy',
+            'guard_name' => 'web'
+        ]);
+
+        //expensesTypes
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.index',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.create',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.edit',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.store',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.update',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'expensesTypes.destroy',
+            'guard_name' => 'web'
+        ]);
+
+        //contractors
+        Permission::updateOrCreate([
+            'name' => 'contractors.index',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'contractors.create',
+            'guard_name' => 'web'
+        ]);
+
+        Permission::updateOrCreate([
+            'name' => 'contractors.edit',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'contractors.store',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'contractors.update',
+            'guard_name' => 'web'
+        ]);
+        Permission::updateOrCreate([
+            'name' => 'contractors.destroy',
+            'guard_name' => 'web'
+        ]);
     }
 }

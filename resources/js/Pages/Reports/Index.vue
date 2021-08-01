@@ -24,9 +24,9 @@
                 <template #head>
                     <tr>
                         <th>ID</th>
+                        <th>Дата</th>
                         <th>Салон</th>
                         <th>Сумма</th>
-                        <th>Дата</th>
                         <th>Кол-во звонков</th>
                         <th>Пришли</th>
                         <th>Остались</th>
@@ -34,11 +34,11 @@
                     </tr>
                 </template>
                 <template #body>
-                    <tr v-for="report in reports.data" :key="report.id">
+                    <tr v-for="report in reports" :key="report.id">
                         <td>{{ report.id }}</td>
+                        <td>{{ report.date }}</td>
                         <td>{{ report.salon.name }}</td>
                         <td>{{ report.sum }}</td>
-                        <td>{{ report.date }}</td>
                         <td>{{ report.number_calls }}</td>
                         <td>{{ report.came }}</td>
                         <td>{{ report.stayed }}</td>

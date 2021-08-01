@@ -41,16 +41,19 @@ class ReportController extends Controller
         //
         if (Auth::user()->hasRole('salon_admin')) {
             $reports = QueryBuilder::for(DateReport::class)
+                ->orderByDesc('id')
                 ->with('salon')
                 ->with('reports')
                 ->whereHas('salon', function (Builder $builder) {
                     $builder->where('user_id', Auth::id());
                 })
-                ->paginate();
+                ->limit(10)
+                ->get();
         } else {
             $reports = DateReport::with('salon')
+                ->orderByDesc('id')
                 ->with('reports')
-                ->paginate();
+                ->get();
         }
 
         foreach ($reports as $report){

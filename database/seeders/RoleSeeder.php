@@ -54,6 +54,27 @@ class RoleSeeder extends Seeder
         $admin->givePermissionTo('sources.edit');
         $admin->givePermissionTo('can.update.fix');
 
+        $admin->givePermissionTo('expenses.index');
+        $admin->givePermissionTo('expenses.create');
+        $admin->givePermissionTo('expenses.edit');
+        $admin->givePermissionTo('expenses.store');
+        $admin->givePermissionTo('expenses.update');
+        $admin->givePermissionTo('expenses.destroy');
+
+        $admin->givePermissionTo('contractors.index');
+        $admin->givePermissionTo('contractors.create');
+        $admin->givePermissionTo('contractors.edit');
+        $admin->givePermissionTo('contractors.store');
+        $admin->givePermissionTo('contractors.update');
+        $admin->givePermissionTo('contractors.destroy');
+
+        $admin->givePermissionTo('expensesTypes.index');
+        $admin->givePermissionTo('expensesTypes.create');
+        $admin->givePermissionTo('expensesTypes.edit');
+        $admin->givePermissionTo('expensesTypes.store');
+        $admin->givePermissionTo('expensesTypes.update');
+        $admin->givePermissionTo('expensesTypes.destroy');
+
        $salon_admin = Role::updateOrCreate([
             'name' => 'salon_admin',
         ],
@@ -70,5 +91,12 @@ class RoleSeeder extends Seeder
         $salon_admin->givePermissionTo('reports.edit');
         $salon_admin->givePermissionTo('reports.update');
         $salon_admin->givePermissionTo('reports.store');
+
+        $salon_admin->givePermissionTo('expenses.index');
+        $salon_admin->givePermissionTo('expenses.create');
+        $salon_admin->givePermissionTo('expenses.edit');
+        $salon_admin->givePermissionTo('expenses.store');
+        $salon_admin->givePermissionTo('expenses.update');
+        $salon_admin->givePermissionTo('expenses.destroy');
     }
 }

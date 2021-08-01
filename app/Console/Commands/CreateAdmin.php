@@ -95,6 +95,27 @@ class CreateAdmin extends Command
         $admin->givePermissionTo('reports.destroy');
         $admin->givePermissionTo('reports.edit');
 
+        $admin->givePermissionTo('expenses.index');
+        $admin->givePermissionTo('expenses.create');
+        $admin->givePermissionTo('expenses.edit');
+        $admin->givePermissionTo('expenses.store');
+        $admin->givePermissionTo('expenses.update');
+        $admin->givePermissionTo('expenses.destroy');
+
+        $admin->givePermissionTo('contractors.index');
+        $admin->givePermissionTo('contractors.create');
+        $admin->givePermissionTo('contractors.edit');
+        $admin->givePermissionTo('contractors.store');
+        $admin->givePermissionTo('contractors.update');
+        $admin->givePermissionTo('contractors.destroy');
+
+        $admin->givePermissionTo('expensesTypes.index');
+        $admin->givePermissionTo('expensesTypes.create');
+        $admin->givePermissionTo('expensesTypes.edit');
+        $admin->givePermissionTo('expensesTypes.store');
+        $admin->givePermissionTo('expensesTypes.update');
+        $admin->givePermissionTo('expensesTypes.destroy');
+
         $user = User::updateOrCreate(
             [
                 'name' => 'Admin',
