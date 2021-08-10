@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,15 @@ use Illuminate\Support\Facades\Route;
 //        'phpVersion' => PHP_VERSION,
 //    ]);
 //});
+
+Route::get('/export/reports/{fileName}/',function (\Illuminate\Http\Request $request, $fileName){
+    $secure = $request->get('secure');
+    if($secure == md5('desu'.$fileName)) {
+        return Storage::disk('local')->get($fileName);
+    }else{
+        echo 'security check error';
+    }
+});
 
 Route::group(['middleware' => ['auth', 'verified']], function (){
     Route::resource('salons', 'SalonController');
