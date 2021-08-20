@@ -15,27 +15,31 @@
         <thead>
             <tr>
                 <td>САЛОН</td>
-                @foreach($reportSources as $reportSource)
-                    <td>{{$reportSource}}</td>
-                @endforeach
+                <td>ОБЩАЯ КАССА</td>
+                <td>НАЛИЧНЫЕ</td>
+                <td>БЕЗНАЛИЧНЫЕ</td>
+                <td>ИНКАССИРОВАНО</td>
             </tr>
         </thead>
         <tbody>
-            @foreach($reportData as $reportSalon)
+            @foreach($salonsData as $salonData)
                 <tr>
-                    <td>{{$reportSalon["salon"]["name"]}}</td>
-                    @foreach($reportSalon['sources'] as $salonSourceReport)
-                        <td>{{$salonSourceReport}}</td>
-                    @endforeach
+                    <td>{{$salonData['salon']['name']}}</td>
+                    <td>{{$salonData['cash_total']}}</td>
+                    <td>{{$salonData['cash']}}</td>
+                    <td>{{$salonData['cashless']}}</td>
+                    <td>{{$salonData['collected']}}</td>
                 </tr>
             @endforeach
+            <tr></tr>
         </tbody>
         <tfoot>
             <tr>
-                <td>ВСЕГО</td>
-                @foreach($reportSources as $reportSourceId => $reportSource)
-                    <td>{{$totalValues[$reportSourceId]}}</td>
-                @endforeach
+                <td><b>ВСЕГО</b></td>
+                <td><b>{{$totalValues['cash_total']}}</b></td>
+                <td><b>{{$totalValues['cash']}}</b></td>
+                <td><b>{{$totalValues['cashless']}}</b></td>
+                <td><b>{{$totalValues['collected']}}</b></td>
             </tr>
         </tfoot>
     </table>

@@ -40,26 +40,30 @@ class SendReport extends Command
     {
         $reportType = $this->argument('reportType');
         if($reportType) {
-            $reportConfig = config('reports.'.$reportType);
-            try {
-                $className = '\App\Reports\\' . $reportConfig['data_class'];
-                $reportClass = new $className($reportConfig['data_params']);
+            $reportConfig = config('reports.' . $reportType);
+            if($reportConfig) {
+                try {
+                    $className = '\App\Reports\\' . $reportConfig['data_class'];
+                    $reportClass = new $className($reportConfig['data_params']);
 
-                if($reportClass->getData()) {
-                    if (is_array($reportConfig['to'])) {
-                        foreach ($reportConfig['to'] as $recipient) {
-                            Notification::route('telegram-bot-api', $recipient)->notify(new \App\Notifications\TelegramReport($reportClass));
+                    if ($reportClass->getData()) {
+                        if (is_array($reportConfig['to'])) {
+                            foreach ($reportConfig['to'] as $recipient) {
+                                Notification::route('telegram-bot-api', $recipient)->notify(new \App\Notifications\TelegramReport($reportClass));
+                            }
+                        } else {
+                            Notification::route('telegram-bot-api', $reportConfig['to'])->notify(new \App\Notifications\TelegramReport($reportClass));
                         }
                     } else {
-                        Notification::route('telegram-bot-api', $reportConfig['to'])->notify(new \App\Notifications\TelegramReport($reportClass));
+                        return 0;
                     }
-                }else{
+                } catch (Exception $exception) {
                     return 0;
                 }
-            } catch (Exception $exception) {
+                return true;
+            }else{
                 return 0;
             }
-            return true;
         }else{
             return 0;
         }

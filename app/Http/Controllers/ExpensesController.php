@@ -28,8 +28,9 @@ class ExpensesController extends Controller
             ->with('type')
             ->with('contractor')
             ->orderByDesc('id')
-            ->paginate()
-            ->withQueryString();
+            //->paginate()
+            //->withQueryString();
+            ->get();
 
         return Inertia::render('Expenses/Index', [
             'expenses' => $expenses

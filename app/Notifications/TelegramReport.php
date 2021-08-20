@@ -22,7 +22,7 @@ class TelegramReport extends Notification
      *
      * @return void
      */
-    public function __construct(DailyReport $reportData)
+    public function __construct($reportData)
     {
         $this->reportData = $reportData;
     }

@@ -3,6 +3,7 @@
 namespace App\Reports;
 
 use App\Models\Report;
+use App\Models\Source;
 use Illuminate\Support\Facades\Storage;
 
 class DailyReport
@@ -25,35 +26,46 @@ class DailyReport
             ->toArray();
 
         if($reports) {
-            $reportSources = [];
-            $reportData = [];
-            $totalValues = [];
+            $salonsData = [];
+            $totalValues = [
+                'cash_total' => 0,
+                'cash' => 0,
+                'cashless' => 0,
+                'collected' => 0
+            ];
             foreach ($reports as $report) {
-                if (!isset($reportData[$report['salon']['id']])) {
-                    $reportData[$report['salon']['id']] = [
+                if (!isset($salonsData[$report['salon']['id']])) {
+                    $salonsData[$report['salon']['id']] = [
                         'salon' => $report['salon'],
-                        'sources' => []
+                        'cash_total' => 0,
+                        'cash' => 0,
+                        'cashless' => 0,
+                        'collected' => 0
                     ];
                 }
 
-                //собираем справочник типов источников
-                if (!isset($reportSources[$report['source']['id']])) {
-                    $reportSources[$report['source']['id']] = $report['source']['name'];
+                if($report['source']['name'] === 'Наличные') {
+                    $salonsData[$report['salon']['id']]['cash'] = $report['sum'];
+                    $totalValues['cash'] += $report['sum'];
                 }
 
-                $reportData[$report['salon']['id']]['sources'][$report['source']['id']] = $report['sum'];
-
-                //считаем total
-                if (!isset($totalValues[$report['source']['id']])) {
-                    $totalValues[$report['source']['id']] = 0;
+                if($report['source']['name'] === 'Безналичные') {
+                    $salonsData[$report['salon']['id']]['cashless'] = $report['sum'];
+                    $totalValues['cashless'] += $report['sum'];
                 }
-                $totalValues[$report['source']['id']] += $report['sum'];
+
+                if($report['source']['name'] === 'Инкассация') {
+                    $salonsData[$report['salon']['id']]['collected'] = $report['sum'];
+                    $totalValues['collected'] += $report['sum'];
+                }
+
+                $salonsData[$report['salon']['id']]['cash_total']+= $report['sum'];
+                $totalValues['cash_total'] += $report['sum'];
             }
 
             $html = view('reports.dailyReport', [
                 "reportDateString" => $reportDateString,
-                "reportSources" => $reportSources,
-                "reportData" => $reportData,
+                "salonsData" => $salonsData,
                 "totalValues" => $totalValues
             ]);
 

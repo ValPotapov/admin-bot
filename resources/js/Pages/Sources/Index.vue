@@ -78,7 +78,6 @@ export default {
     },
 
     mounted() {
-      console.log(this.success)
     },
     methods:{
         showAlert(id) {

@@ -5,7 +5,7 @@
                     Расходы
                 </h2>
         </template>
-            <toast :success="$page.props.success"/>
+        <toast :success="$page.props.success"/>
         <div class="flex justify-end mb-5">
             <can permission="expenses.create">
                 <inertia-link
@@ -33,7 +33,7 @@
                     </tr>
                 </template>
                 <template #body>
-                    <tr v-for="expense in expenses.data" :key="expense.id">
+                    <tr v-for="expense in expenses" :key="expense.id">
                         <td>{{ expense.id }}</td>
                         <td>{{ expense.date }}</td>
                         <td>{{ expense.type.name }}</td>

@@ -47,7 +47,6 @@ class ReportController extends Controller
                 ->whereHas('salon', function (Builder $builder) {
                     $builder->where('user_id', Auth::id());
                 })
-                ->limit(10)
                 ->get();
         } else {
             $reports = DateReport::with('salon')
