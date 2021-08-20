@@ -41,7 +41,7 @@ class ReportController extends Controller
         //
         if (Auth::user()->hasRole('salon_admin')) {
             $reports = QueryBuilder::for(DateReport::class)
-                ->orderByDesc('id')
+                ->orderByDesc('date')
                 ->with('salon')
                 ->with('reports')
                 ->whereHas('salon', function (Builder $builder) {
@@ -50,7 +50,7 @@ class ReportController extends Controller
                 ->get();
         } else {
             $reports = DateReport::with('salon')
-                ->orderByDesc('id')
+                ->orderByDesc('date')
                 ->with('reports')
                 ->get();
         }

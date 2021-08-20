@@ -36,8 +36,8 @@
                     <tr v-for="expense in expenses" :key="expense.id">
                         <td>{{ expense.id }}</td>
                         <td>{{ expense.date }}</td>
-                        <td>{{ expense.type.name }}</td>
-                        <td>{{ expense.contractor.name }}</td>
+                        <td>{{ expense.type? expense.type.name:'' }}</td>
+                        <td>{{ expense.contractor? expense.contractor.name:'' }}</td>
                         <td class="text-right">{{ expense.sum }}</td>
                         <td>{{ expense.comment }}</td>
                         <td class="flex justify-evenly">
