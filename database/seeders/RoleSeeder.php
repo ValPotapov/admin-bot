@@ -91,12 +91,5 @@ class RoleSeeder extends Seeder
         $salon_admin->givePermissionTo('reports.edit');
         $salon_admin->givePermissionTo('reports.update');
         $salon_admin->givePermissionTo('reports.store');
-
-        $salon_admin->givePermissionTo('expenses.index');
-        $salon_admin->givePermissionTo('expenses.create');
-        $salon_admin->givePermissionTo('expenses.edit');
-        $salon_admin->givePermissionTo('expenses.store');
-        $salon_admin->givePermissionTo('expenses.update');
-        $salon_admin->givePermissionTo('expenses.destroy');
     }
 }
