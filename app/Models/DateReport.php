@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 
 class DateReport extends Model
 {
@@ -14,6 +15,16 @@ class DateReport extends Model
         'salon_id',
         'fixed'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::saved(function ($reportDate) {
+            foreach (config('reports.daily_report.to') as $to) {
+                Notification::route('telegram-bot-api', $to)->notify(new \App\Notifications\TelegramReportUpdate('Отчет ' . $reportDate->salon->name . ' ' . $reportDate->date . ' заполнен'));
+            }
+        });
+    }
 
     public function images()
     {

@@ -79,13 +79,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($managersReport['salons'] as $salonName => $report)
-                    <tr>
-                        <td>{{$salonName}}</td>
-                        <td>{{$report['visitors']}}</td>
-                        <td>{{$report['income']}}</td>
-                    </tr>
-                @endforeach
+                    @if(isset($managersReport['salons']))
+                        @foreach($managersReport['salons'] as $salonName => $report)
+                            <tr>
+                                <td>{{$salonName}}</td>
+                                <td>{{$report['visitors']}}</td>
+                                <td>{{$report['income']}}</td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
                 <tfoot>
                     <tr>

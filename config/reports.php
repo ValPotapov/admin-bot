@@ -4,7 +4,10 @@ return [
     'daily_report' => [
         'to' => [
             78852817,
-            386370863
+            386370863,
+            996881238,
+            701196049,
+            445834812
         ],
         'data_class' => 'DailyReport',
         'data_params' => '',
@@ -15,7 +18,7 @@ return [
     'weekly_report' => [
         'to' => [
             78852817,
-            386370863
+            386370863,
         ],
         'data_class' => 'WeeklyReport',
         'data_params' => '',

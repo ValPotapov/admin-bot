@@ -33,7 +33,7 @@ class SourceController extends Controller
     {
         //
         $sources = QueryBuilder::for(Source::class)
-            ->paginate(100)
+            ->paginate()
             ->withQueryString();
 
         return Inertia::render('Sources/Index', [

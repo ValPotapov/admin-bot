@@ -318,7 +318,7 @@ class ReportController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Report $report)
+    public function destroy(Request $request, Report $report)
     {
         //
         $report->delete();

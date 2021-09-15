@@ -10,10 +10,10 @@ use App\Models\Source;
 class WeeklyReport
 {
     static function build(){
-        $reportDateFrom = \Carbon\Carbon::yesterday()->subDays(7);
+        $reportDateFrom = \Carbon\Carbon::create(2021,8,20);//\Carbon\Carbon::yesterday()->subDays(7);
         $reportDateFromString = $reportDateFrom->format('d M y');
 
-        $reportDateTo = \Carbon\Carbon::yesterday();
+        $reportDateTo = \Carbon\Carbon::create(2021,8,27);//\Carbon\Carbon::yesterday();
         $reportDateToString = $reportDateTo->format('d M y');
 
         $reportSources = [
